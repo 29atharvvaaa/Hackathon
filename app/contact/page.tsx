@@ -155,7 +155,7 @@ export default function ContactPage() {
                           id="phone"
                           name="phone"
                           type="tel"
-                          placeholder="+91 12345 67890"
+                          placeholder="+91 XXXXX XXXXX"
                           value={formData.phone}
                           onChange={handleChange}
                         />

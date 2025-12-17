@@ -55,18 +55,18 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-background/70 text-sm">
                 <Mail className="h-4 w-4" />
-                hello@wanderly.com
+                support@wanderly.com
               </li>
               <li className="flex items-center gap-2 text-background/70 text-sm">
                 <Phone className="h-4 w-4" />
-                +1 (555) 123-4567
+                +91 12345 67890
               </li>
               <li className="flex items-start gap-2 text-background/70 text-sm">
                 <MapPin className="h-4 w-4 mt-0.5" />
                 <span>
-                  123 Travel Lane
+                  R1-C5 Travel Lane
                   <br />
-                  New York, NY 10001
+                  Mumbai, MUM 10001
                 </span>
               </li>
             </ul>
