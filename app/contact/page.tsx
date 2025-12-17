@@ -66,7 +66,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Email</h3>
-                    <p className="text-muted-foreground text-sm">hello@wanderly.com</p>
+                    <p className="text-muted-foreground text-sm">support@wanderly.com</p>
                     <p className="text-muted-foreground text-sm">bookings@wanderly.com</p>
                   </div>
                 </div>
@@ -77,8 +77,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Phone</h3>
-                    <p className="text-muted-foreground text-sm">+1 (555) 123-4567</p>
-                    <p className="text-muted-foreground text-sm">Mon-Fri, 9am-6pm EST</p>
+                    <p className="text-muted-foreground text-sm">+91 12345 67890</p>
+                    <p className="text-muted-foreground text-sm">Mon-Fri, 11am-7pm IST</p>
                   </div>
                 </div>
 
@@ -88,8 +88,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Office</h3>
-                    <p className="text-muted-foreground text-sm">123 Travel Lane</p>
-                    <p className="text-muted-foreground text-sm">New York, NY 10001</p>
+                    <p className="text-muted-foreground text-sm">R1-C5 Travel Lane</p>
+                    <p className="text-muted-foreground text-sm">Mumbai, MUM 10001</p>
                   </div>
                 </div>
               </div>
@@ -155,7 +155,7 @@ export default function ContactPage() {
                           id="phone"
                           name="phone"
                           type="tel"
-                          placeholder="+1 (555) 000-0000"
+                          placeholder="+91 12345 67890"
                           value={formData.phone}
                           onChange={handleChange}
                         />
