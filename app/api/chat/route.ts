@@ -39,12 +39,16 @@ export async function POST(req: Request) {
     }
 
     // Using the Gemini REST API directly keeps the server dependency-free.
+    // Prefer an API-key header (vs `?key=`) to avoid leaking the key via URL logs.
     const model = "gemini-1.5-flash"
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`
 
     const geminiRes = await fetch(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "x-goog-api-key": apiKey,
+      },
       body: JSON.stringify({
         systemInstruction,
         contents,
