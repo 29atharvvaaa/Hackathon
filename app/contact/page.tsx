@@ -88,7 +88,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Office</h3>
-                    <p className="text-muted-foreground text-sm">R1-C5 Travel Lane</p>
+                    <p className="text-muted-foreground text-sm">R1-C Travel Lane</p>
                     <p className="text-muted-foreground text-sm">Mumbai, MUM 10001</p>
                   </div>
                 </div>
