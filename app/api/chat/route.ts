@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server"
 
+// Ensure we run in the Node.js runtime (not Edge), for maximum compatibility.
+export const runtime = "nodejs"
+
 type ChatMessage = {
   role: "user" | "assistant"
   content: string
@@ -40,7 +43,7 @@ export async function POST(req: Request) {
 
     // Using the Gemini REST API directly keeps the server dependency-free.
     // Prefer an API-key header (vs `?key=`) to avoid leaking the key via URL logs.
-    const model = "gemini-1.5-flash"
+    const model = process.env.GEMINI_MODEL || "gemini-1.5-flash"
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`
 
     const geminiRes = await fetch(url, {
@@ -50,6 +53,7 @@ export async function POST(req: Request) {
         "x-goog-api-key": apiKey,
       },
       body: JSON.stringify({
+        // For the Generative Language REST API, this field is camelCase.
         systemInstruction,
         contents,
         generationConfig: {
@@ -59,11 +63,25 @@ export async function POST(req: Request) {
       }),
     })
 
-    const geminiJson = (await geminiRes.json()) as any
+    const raw = await geminiRes.text()
+    let geminiJson: any = undefined
+    try {
+      geminiJson = raw ? JSON.parse(raw) : undefined
+    } catch {
+      // non-JSON response
+    }
 
     if (!geminiRes.ok) {
-      const message = geminiJson?.error?.message || "Gemini API request failed"
-      return NextResponse.json({ error: message }, { status: 500 })
+      const message = geminiJson?.error?.message || raw || "Gemini API request failed"
+      console.error("Gemini API error", {
+        status: geminiRes.status,
+        model,
+        message,
+      })
+      return NextResponse.json(
+        { error: message, status: geminiRes.status },
+        { status: 500 },
+      )
     }
 
     const reply: string | undefined = geminiJson?.candidates?.[0]?.content?.parts
@@ -72,8 +90,11 @@ export async function POST(req: Request) {
       ?.join("")
 
     return NextResponse.json({ reply: reply || "" })
-  } catch (err) {
-    console.error(err)
-    return NextResponse.json({ error: "Unexpected server error" }, { status: 500 })
+  } catch (err: any) {
+    console.error("/api/chat unexpected error", err)
+    return NextResponse.json(
+      { error: err?.message || "Unexpected server error" },
+      { status: 500 },
+    )
   }
 }

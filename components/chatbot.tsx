@@ -90,10 +90,13 @@ export function Chatbot() {
       }
 
       setMessages((prev) => [...prev, botMessage])
-    } catch (err) {
+    } catch (err: any) {
+      const detail =
+        process.env.NODE_ENV === "development" ? `\n\n(${err?.message || "Unknown error"})` : ""
+
       const botMessage: Message = {
         id: Date.now() + 1,
-        text: "Sorry — I ran into an error talking to the AI. Please try again.",
+        text: `Sorry — I ran into an error talking to the AI. Please try again.${detail}`,
         sender: "bot",
         timestamp: new Date(),
       }
